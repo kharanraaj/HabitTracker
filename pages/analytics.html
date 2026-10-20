@@ -1,0 +1,287 @@
+<div class="page-view" id="analytics-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Performance Analytics</h1>
+      <p>Data-driven insights, statistical relationships, and transparent performance calculations.</p>
+    </div>
+    <div class="page-header-actions">
+      <!-- Time period filter -->
+      <div class="view-mode-tabs" role="tablist" aria-label="Analytics Time Period">
+        <button class="view-mode-tab" data-period="7" role="tab" type="button">7 Days</button>
+        <button class="view-mode-tab active" data-period="30" role="tab" type="button">30 Days</button>
+        <button class="view-mode-tab" data-period="60" role="tab" type="button">60 Days</button>
+        <button class="view-mode-tab" data-period="90" role="tab" type="button">90 Days</button>
+        <button class="view-mode-tab" data-period="all" role="tab" type="button">All Time</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Key Metrics Row -->
+  <div class="analytics-grid-top">
+    <!-- Stat 1: Completion Rate -->
+    <div class="card stat-card">
+      <span class="stat-label">Eligible Completion Rate</span>
+      <span class="stat-value" id="stat-completion-rate">0%</span>
+      <span class="stat-subtext" id="stat-completion-obs">0 completed / 0 recorded eligible days</span>
+    </div>
+
+    <!-- Stat 2: Current Streak -->
+    <div class="card stat-card">
+      <span class="stat-label">Top Active Streak</span>
+      <span class="stat-value" id="stat-top-streak">0 days</span>
+      <span class="stat-subtext" id="stat-top-streak-habit">No active streak</span>
+    </div>
+
+    <!-- Stat 3: Best Streak Record -->
+    <div class="card stat-card">
+      <span class="stat-label">All-Time Best Streak</span>
+      <span class="stat-value" id="stat-best-streak">0 days</span>
+      <span class="stat-subtext" id="stat-best-streak-habit">All habits tracked</span>
+    </div>
+
+    <!-- Stat 4: Consistency Score -->
+    <div class="card stat-card" style="border-left: 3px solid var(--accent-base);">
+      <span class="stat-label">Consistency Score</span>
+      <span class="stat-value" id="stat-consistency-score">0 / 100</span>
+      <span class="stat-subtext" id="stat-consistency-rating">Awaiting baseline data</span>
+    </div>
+  </div>
+
+  <!-- Consistency Score Transparent Formula Breakdown -->
+  <div class="card consistency-score-card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Transparent Consistency Score Breakdown
+        </h3>
+        <span class="card-subtitle">User-verifiable formula with exact component weights (not an objective health measure)</span>
+      </div>
+      <span class="badge badge-accent" id="consistency-badge">Score: 0 / 100</span>
+    </div>
+    <div style="overflow-x: auto;">
+      <table class="formula-breakdown-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Weight</th>
+            <th>Description &amp; Logic</th>
+            <th>Raw Metric</th>
+            <th>Contribution</th>
+          </tr>
+        </thead>
+        <tbody id="consistency-breakdown-body">
+          <!-- Populated by analytics.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Calendar Heatmap Card -->
+  <div class="card heatmap-card">
+    <div class="heatmap-controls">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Activity Calendar Heatmap
+        </h3>
+        <span class="card-subtitle">Visual intensity of daily completions across the year</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: var(--space-3);">
+        <label for="heatmap-habit-filter" style="font-size: var(--text-xs); color: var(--text-muted); font-weight: 600;">Filter:</label>
+        <select class="form-select" id="heatmap-habit-filter" style="padding: 0.35rem 0.65rem; font-size: var(--text-xs); width: auto;">
+          <option value="all">All Habits (Overall Intensity)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="heatmap-scroll-area">
+      <div class="heatmap-container" id="calendar-heatmap-container">
+        <!-- Rendered by heatmap.js -->
+      </div>
+    </div>
+
+    <div class="heatmap-footer">
+      <div class="heatmap-legend">
+        <span>Less</span>
+        <div class="legend-scale">
+          <div class="heatmap-cell level-0" title="0% completion"></div>
+          <div class="heatmap-cell level-1" title="1-25% completion"></div>
+          <div class="heatmap-cell level-2" title="26-50% completion"></div>
+          <div class="heatmap-cell level-3" title="51-75% completion"></div>
+          <div class="heatmap-cell level-4" title="76-100% completion"></div>
+        </div>
+        <span>More</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-muted);">
+        Click any day cell to open and edit tracker for that date
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 1: Rolling Trend & Weekday Comparison -->
+  <div class="charts-dual-grid">
+    <!-- Chart: Rolling Trend Line -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Rolling Completion Trend</h3>
+          <span class="card-subtitle">Actual daily rate with 7-day rolling average overlay</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="rollingTrendCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart: Weekday Performance Bar Chart -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Weekday Consistency</h3>
+          <span class="card-subtitle">Completion rate by day of week (min 4 obs threshold)</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="weekdayBarCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pacing & Recovery Analysis -->
+  <div class="charts-dual-grid">
+    <!-- Goal Pacing Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            Current Period Goal Pacing
+          </h3>
+          <span class="card-subtitle">Trajectory, remaining effort, and pacing feasibility</span>
+        </div>
+        <span class="badge badge-neutral" id="pacing-status-badge">Calculating</span>
+      </div>
+      <div class="pacing-meter-wrap">
+        <div class="pacing-meter-bar" id="pacing-progress-bar" style="width: 0%;"></div>
+      </div>
+      <div class="pacing-stats-grid">
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-target-val">0</span>
+          <span class="pacing-stat-lbl">Target Sessions</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-completed-val">0</span>
+          <span class="pacing-stat-lbl">Completed So Far</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-remaining-days">0</span>
+          <span class="pacing-stat-lbl">Remaining Days</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-effort-needed">0</span>
+          <span class="pacing-stat-lbl">Daily Effort Needed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recovery Analysis Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--color-warning);"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+            Interruption &amp; Recovery Analysis
+          </h3>
+          <span class="card-subtitle">How effectively you bounce back following missed days</span>
+        </div>
+      </div>
+      <div class="pacing-stats-grid">
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-rate-val">0%</span>
+          <span class="pacing-stat-lbl">Recovery Rate (&le;2 days)</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-avg-time">0 days</span>
+          <span class="pacing-stat-lbl">Avg Time to Resume</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-interruption-len">0 days</span>
+          <span class="pacing-stat-lbl">Avg Gap Duration</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-total-gaps">0</span>
+          <span class="pacing-stat-lbl">Interruption Events</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2: Radar & Scatter Plot -->
+  <div class="charts-dual-grid">
+    <!-- Normalized Radar Chart -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Habit Profile (Normalized Radar)</h3>
+          <span class="card-subtitle">Comparable score across habits (0–100 normalized attainment)</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="habitRadarCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Scatter Plot for Numerical Variables -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Quantitative Relationship (Scatter Plot)</h3>
+          <span class="card-subtitle">Explore pairs of numerical habits (e.g. Walking vs Sleep)</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="scatterPlotCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Habit Correlation Analysis Section -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--color-info);"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          Statistical Habit Association Matrix
+        </h3>
+        <span class="card-subtitle">Phi coefficient (binary habits) &amp; Pearson/Spearman (numerical). Minimum 20 paired observations.</span>
+      </div>
+      <span class="badge badge-neutral" style="font-size: 11px;">Deterministic &bull; No AI</span>
+    </div>
+
+    <div class="correlation-matrix-wrap" id="correlation-matrix-container">
+      <!-- Populated by charts.js / analytics.js -->
+    </div>
+
+    <div style="margin-top: var(--space-4); padding: var(--space-3); border-radius: var(--radius-md); background-color: var(--bg-card-subtle); border: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.5;">
+      <strong>Statistical Methodology Note:</strong> Associations measure co-occurrence patterns in your recorded history. 
+      <em>Correlation does not imply causation.</em> Unrecorded days, shared environmental factors, and schedule differences influence these metrics.
+    </div>
+  </div>
+
+  <!-- Rule-Based Insight Engine Feed -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          Actionable Personal Insights
+        </h3>
+        <span class="card-subtitle">Grounded strictly in verified data. No hallucinated or fabricated statements.</span>
+      </div>
+    </div>
+    <div class="insights-feed" id="analytics-insights-feed">
+      <!-- Populated by analytics.js insight engine -->
+    </div>
+  </div>
+</div>

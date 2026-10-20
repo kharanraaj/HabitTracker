@@ -1,0 +1,90 @@
+<div class="page-view" id="habits-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Habit Management</h1>
+      <p>Configure habit definitions, targets, schedules, and custom properties.</p>
+    </div>
+    <div class="page-header-actions">
+      <button class="btn btn-primary" id="habits-new-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Create Habit</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary stats -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+    <div class="card stat-card">
+      <span class="stat-label">Active Habits</span>
+      <span class="stat-value" id="habits-count-active">0</span>
+      <span class="stat-subtext">Currently tracked on schedule</span>
+    </div>
+    <div class="card stat-card">
+      <span class="stat-label">Archived Habits</span>
+      <span class="stat-value" id="habits-count-archived">0</span>
+      <span class="stat-subtext">Preserved historical records</span>
+    </div>
+  </div>
+
+  <!-- Active Habits Section -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">Active Habits</h3>
+        <span class="card-subtitle">Active habits appearing in your tracker and analytics</span>
+      </div>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="tracker-table" style="min-width: 680px;">
+        <thead>
+          <tr>
+            <th style="width: 50px; text-align: center;">Order</th>
+            <th style="text-align: left; padding-left: var(--space-4);">Habit</th>
+            <th>Type</th>
+            <th>Daily Target</th>
+            <th>Schedule</th>
+            <th>Start Date</th>
+            <th style="width: 140px; text-align: right; padding-right: var(--space-4);">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="active-habits-tbody">
+          <!-- Populated dynamically by habits.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Archived Habits Section -->
+  <div class="card" id="archived-habits-card">
+    <div class="card-header" style="cursor: pointer;" id="archived-header-toggle">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px; color: var(--text-muted);"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+          Archived Habits (<span id="archived-count-inline">0</span>)
+        </h3>
+        <span class="card-subtitle">Paused or completed habits. Historical data remains intact.</span>
+      </div>
+      <button class="btn btn-sm btn-ghost" id="toggle-archived-view-btn" type="button">Show</button>
+    </div>
+
+    <div id="archived-habits-body" style="display: none; padding-top: var(--space-3);">
+      <div style="overflow-x: auto;">
+        <table class="tracker-table" style="min-width: 680px;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding-left: var(--space-4);">Habit</th>
+              <th>Type</th>
+              <th>Target</th>
+              <th>Archived Date</th>
+              <th style="width: 140px; text-align: right; padding-right: var(--space-4);">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="archived-habits-tbody">
+            <!-- Populated dynamically by habits.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

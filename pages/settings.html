@@ -1,0 +1,205 @@
+<div class="page-view" id="settings-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Settings &amp; Data</h1>
+      <p>Configure interface themes, regional formats, and manage local data backups.</p>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: var(--space-6); max-width: 860px;">
+    <!-- Theme & Visual Appearance -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            Appearance &amp; Theme
+          </h3>
+          <span class="card-subtitle">Choose your preferred visual presentation and accent tone</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Theme Mode</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-3);">
+          <label class="radio-card" style="padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--border-default); display: flex; align-items: center; gap: var(--space-3); cursor: pointer;">
+            <input type="radio" name="app-theme" value="dark" checked />
+            <div>
+              <div style="font-weight: 600; font-size: var(--text-sm);">Dark Charcoal</div>
+              <div style="font-size: var(--text-xs); color: var(--text-muted);">Deep charcoal surfaces</div>
+            </div>
+          </label>
+          <label class="radio-card" style="padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--border-default); display: flex; align-items: center; gap: var(--space-3); cursor: pointer;">
+            <input type="radio" name="app-theme" value="oled" />
+            <div>
+              <div style="font-weight: 600; font-size: var(--text-sm);">True OLED</div>
+              <div style="font-size: var(--text-xs); color: var(--text-muted);">Pure #000000 black</div>
+            </div>
+          </label>
+          <label class="radio-card" style="padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--border-default); display: flex; align-items: center; gap: var(--space-3); cursor: pointer;">
+            <input type="radio" name="app-theme" value="light" />
+            <div>
+              <div style="font-weight: 600; font-size: var(--text-sm);">Light Mode</div>
+              <div style="font-size: var(--text-xs); color: var(--text-muted);">Crisp off-white surfaces</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: var(--space-2);">
+        <label class="form-label">Primary Accent Color</label>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;" id="accent-color-selector">
+          <button type="button" class="btn-accent-color" data-accent="emerald" style="width: 36px; height: 36px; border-radius: 50%; background-color: #10b981; border: 2px solid white; cursor: pointer; box-shadow: 0 0 0 2px #10b981;" title="Emerald"></button>
+          <button type="button" class="btn-accent-color" data-accent="blue" style="width: 36px; height: 36px; border-radius: 50%; background-color: #3b82f6; border: 2px solid transparent; cursor: pointer;" title="Blue"></button>
+          <button type="button" class="btn-accent-color" data-accent="violet" style="width: 36px; height: 36px; border-radius: 50%; background-color: #8b5cf6; border: 2px solid transparent; cursor: pointer;" title="Violet"></button>
+          <button type="button" class="btn-accent-color" data-accent="amber" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f59e0b; border: 2px solid transparent; cursor: pointer;" title="Amber"></button>
+          <button type="button" class="btn-accent-color" data-accent="rose" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f43f5e; border: 2px solid transparent; cursor: pointer;" title="Rose"></button>
+          <button type="button" class="btn-accent-color" data-accent="cyan" style="width: 36px; height: 36px; border-radius: 50%; background-color: #06b6d4; border: 2px solid transparent; cursor: pointer;" title="Cyan"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Regional & Date Formatting Preferences -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Calendar &amp; Regional Preferences</h3>
+          <span class="card-subtitle">Control week starting day, date format, and number representations</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="setting-week-start">Week Starts On</label>
+          <select class="form-select" id="setting-week-start">
+            <option value="monday">Monday (ISO standard)</option>
+            <option value="sunday">Sunday</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="setting-date-format">Date Display Format</label>
+          <select class="form-select" id="setting-date-format">
+            <option value="YYYY-MM-DD">YYYY-MM-DD (2026-10-20)</option>
+            <option value="MMM D, YYYY">MMM D, YYYY (Oct 20, 2026)</option>
+            <option value="DD/MM/YYYY">DD/MM/YYYY (20/10/2026)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="setting-number-format">Number Formatting</label>
+          <select class="form-select" id="setting-number-format">
+            <option value="en-US">US / Standard (1,234.56)</option>
+            <option value="en-IN">Indian Format (1,23,456.78)</option>
+            <option value="de-DE">European Format (1.234,56)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="setting-default-period">Default Analytics Period</label>
+          <select class="form-select" id="setting-default-period">
+            <option value="7">7 Days</option>
+            <option value="30" selected>30 Days</option>
+            <option value="60">60 Days</option>
+            <option value="90">90 Days</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy & Local Storage -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--color-success);"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Privacy &amp; Local Storage Architecture
+          </h3>
+          <span class="card-subtitle">Zero external services. 100% private to your browser.</span>
+        </div>
+        <span class="badge badge-success">Local Only</span>
+      </div>
+
+      <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: var(--space-2);">
+        <p>
+          All habits, entries, notes, and settings are stored strictly in your browser’s local storage.
+          No information is ever transmitted to any third-party server, tracking service, or cloud AI.
+        </p>
+        <p style="color: var(--color-warning);">
+          <strong>Important Note:</strong> Because data is stored in the browser, clearing browsing cache/site data or using incognito sessions can erase your local history. Please create regular JSON backup exports.
+        </p>
+      </div>
+
+      <div style="margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--radius-md); background-color: var(--bg-card-subtle); border: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; font-size: var(--text-xs);">
+        <span style="color: var(--text-muted);">Current Local Storage Usage:</span>
+        <span style="font-weight: 700; color: var(--text-primary);" id="storage-usage-text">Calculating...</span>
+      </div>
+    </div>
+
+    <!-- Data Portability: Import & Export -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Data Portability &amp; Backups
+          </h3>
+          <span class="card-subtitle">Complete backups, safe validation, and CSV exports</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+        <!-- JSON Backup -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-subtle);">
+          <div>
+            <div style="font-weight: 600; font-size: var(--text-sm);">Full System JSON Backup</div>
+            <div style="font-size: var(--text-xs); color: var(--text-muted);">Exports full versioned schema with habits, history, and settings</div>
+          </div>
+          <div style="display: flex; gap: var(--space-2);">
+            <button class="btn btn-secondary btn-sm" id="export-json-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Export JSON</span>
+            </button>
+            <label class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Import JSON</span>
+              <input type="file" id="import-json-file-input" accept=".json" style="display: none;" />
+            </label>
+          </div>
+        </div>
+
+        <!-- CSV Exports -->
+        <div>
+          <div style="font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-2);">Spreadsheet CSV Exports</div>
+          <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm" id="export-entries-csv-btn" type="button">Daily Entries CSV</button>
+            <button class="btn btn-secondary btn-sm" id="export-habits-csv-btn" type="button">Habit Definitions CSV</button>
+            <button class="btn btn-secondary btn-sm" id="export-analytics-csv-btn" type="button">Analytics Summary CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Danger Zone: Reset Data -->
+    <div class="card" style="border-color: var(--color-danger-border);">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title" style="color: var(--color-danger);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Danger Zone
+          </h3>
+          <span class="card-subtitle">Irreversible actions requiring confirmation</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3);">
+        <div>
+          <div style="font-weight: 600; font-size: var(--text-sm);">Reset All Application Data</div>
+          <div style="font-size: var(--text-xs); color: var(--text-muted);">Permanently deletes all entries and resets habits to initial defaults</div>
+        </div>
+        <button class="btn btn-danger btn-sm" id="reset-all-data-btn" type="button">Reset All Data</button>
+      </div>
+    </div>
+  </div>
+</div>

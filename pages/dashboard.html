@@ -1,0 +1,127 @@
+<div class="page-view" id="dashboard-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Daily Command Center</h1>
+      <p id="dashboard-subtitle">Track, understand, and refine your daily personal performance.</p>
+    </div>
+    <div class="page-header-actions">
+      <button class="btn btn-primary" id="dash-quick-track-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Open Tracker</span>
+      </button>
+      <button class="btn btn-secondary" id="dash-add-habit-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>New Habit</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Left Hero Column -->
+    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+      <!-- Daily Progress Ring Card -->
+      <div class="hero-card" id="hero-progress-card">
+        <div class="ring-wrapper">
+          <svg class="progress-ring-svg" viewBox="0 0 160 160" aria-hidden="true">
+            <circle class="ring-bg" cx="80" cy="80" r="70" stroke-width="12"></circle>
+            <circle class="ring-indicator" id="hero-ring-indicator" cx="80" cy="80" r="70" stroke-width="12"
+              stroke-dasharray="439.82" stroke-dashoffset="439.82"></circle>
+          </svg>
+          <div class="ring-inner-content">
+            <span class="ring-percent" id="hero-ring-percent">0%</span>
+            <span class="ring-subtext" id="hero-ring-ratio">0 of 0 habits</span>
+          </div>
+        </div>
+        <h2 style="font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); margin-top: var(--space-2);">Today's Completion</h2>
+        <div class="status-message-banner" id="hero-status-message">
+          Loading today's status...
+        </div>
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="hero-stat-val" id="hero-stat-active">0</span>
+            <span class="hero-stat-lbl">Active Today</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-val" id="hero-stat-completed">0</span>
+            <span class="hero-stat-lbl">Completed</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-val" id="hero-stat-remaining">0</span>
+            <span class="hero-stat-lbl">Pending</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-Day Completion Strip -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Past 7 Days Consistency</h3>
+            <span class="card-subtitle">Daily completion rates over the last week</span>
+          </div>
+        </div>
+        <div class="completion-strip" id="dashboard-strip">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Actionable Insight Highlight -->
+      <div class="card insight-highlight-card" id="dashboard-insight-card">
+        <div class="insight-category-tag" id="dash-insight-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span id="dash-insight-category">Data Insight</span>
+        </div>
+        <p class="insight-text" id="dash-insight-text">
+          Track habits consistently to discover meaningful behavioral patterns and insights.
+        </p>
+        <div class="insight-evidence" id="dash-insight-evidence">
+          <span id="dash-insight-evidence-text">Minimum 7 days of tracking recommended</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Main Column -->
+    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+      <!-- Today's Quick Log Snapshot -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Today's Habits</h3>
+            <span class="card-subtitle">Quick-entry for scheduled habits</span>
+          </div>
+          <span class="badge badge-accent" id="dash-today-date-badge">Today</span>
+        </div>
+        <div class="quick-habit-list" id="dashboard-quick-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Streak & Personal Record Highlights -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Active Streaks & Records</h3>
+            <span class="card-subtitle">Longest streaks and sustained consistency</span>
+          </div>
+          <a href="#analytics" class="btn btn-sm btn-ghost">Full Analytics &rarr;</a>
+        </div>
+        <div class="streak-cards-grid" id="dashboard-streaks-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Weekly Trend Mini Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Weekly Trend</h3>
+            <span class="card-subtitle">Completion rate over recent weeks</span>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap" style="height: 180px;">
+          <canvas id="dashboardTrendCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="emerald">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Habit Tracker — Premium Personal Performance &amp; Analytics System. Daily habit tracking, transparent statistics, and actionable insights." />
+  <meta name="theme-color" content="#0f1217" />
+  <title>Habit Tracker — Personal Performance &amp; Analytics</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Core Application Stylesheets -->
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/tracker.css" />
+  <link rel="stylesheet" href="css/analytics.css" />
+
+  <!-- Bundled Local Chart.js (Pinned UMD for 100% offline & local reliability) -->
+  <script src="assets/lib/chart.umd.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Desktop Sidebar Navigation -->
+    <aside id="sidebar" aria-label="Sidebar Navigation">
+      <div class="brand-section">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div class="brand-title-wrap">
+          <span class="brand-title">HabitPulse</span>
+          <span class="brand-subtitle">Performance OS</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="#dashboard" class="nav-link active" data-page="dashboard" id="nav-item-dashboard" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#tracker" class="nav-link" data-page="tracker" id="nav-item-tracker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Tracker Grid</span>
+        </a>
+        <a href="#analytics" class="nav-link" data-page="analytics" id="nav-item-analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="#habits" class="nav-link" data-page="habits" id="nav-item-habits">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Habits</span>
+        </a>
+        <a href="#settings" class="nav-link" data-page="settings" id="nav-item-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="storage-status-card">
+          <div class="storage-label">
+            <span>Storage</span>
+            <span class="storage-badge" id="storage-status-badge">Local Sync</span>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); font-feature-settings: 'tnum' 1;" id="sidebar-entries-count">
+            0 entries recorded
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div id="main-wrapper">
+      <!-- Top Navigation Bar -->
+      <header id="top-bar">
+        <div class="topbar-left">
+          <div class="current-date-badge" id="topbar-date-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span id="current-date-text">Loading date...</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Quick theme cycler button -->
+          <button class="btn btn-icon btn-sm" id="topbar-theme-toggle" type="button" title="Toggle Theme (Dark / OLED / Light)" aria-label="Toggle Theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="topbar-theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+
+          <!-- Quick track button -->
+          <a href="#tracker" class="btn btn-primary btn-sm" id="topbar-track-shortcut">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="btn-text-label">Quick Log</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Dynamic Page Container -->
+      <main id="page-container" role="main" aria-live="polite">
+        <noscript>
+          <div class="empty-state" style="margin-top: 40px;">
+            <div class="empty-state-title">JavaScript Required</div>
+            <div class="empty-state-desc">Habit Tracker runs fully locally in your modern web browser using client-side JavaScript. Please enable JavaScript to access your habits and analytics.</div>
+          </div>
+        </noscript>
+      </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav id="mobile-nav" aria-label="Mobile Navigation">
+      <a href="#dashboard" class="mobile-nav-link active" data-page="dashboard" id="mob-nav-dashboard" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="#tracker" class="mobile-nav-link" data-page="tracker" id="mob-nav-tracker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Tracker</span>
+      </a>
+      <a href="#analytics" class="mobile-nav-link" data-page="analytics" id="mob-nav-analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Analytics</span>
+      </a>
+      <a href="#habits" class="mobile-nav-link" data-page="habits" id="mob-nav-habits">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/></svg>
+        <span>Habits</span>
+      </a>
+      <a href="#settings" class="mobile-nav-link" data-page="settings" id="mob-nav-settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- Accessible Global Modal Structure -->
+    <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card" id="modal-card">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-title">Modal Title</h2>
+          <button class="btn btn-icon btn-sm btn-icon-ghost" id="modal-close-btn" type="button" aria-label="Close modal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer" id="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Embedded View Templates for 100% Offline, Fast & Resilient Navigation -->
+    <template id="template-dashboard">
+<div class="page-view" id="dashboard-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Daily Command Center</h1>
+      <p id="dashboard-subtitle">Track, understand, and refine your daily personal performance.</p>
+    </div>
+    <div class="page-header-actions">
+      <button class="btn btn-primary" id="dash-quick-track-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Open Tracker</span>
+      </button>
+      <button class="btn btn-secondary" id="dash-add-habit-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>New Habit</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Left Hero Column -->
+    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+      <!-- Daily Progress Ring Card -->
+      <div class="hero-card" id="hero-progress-card">
+        <div class="ring-wrapper">
+          <svg class="progress-ring-svg" viewBox="0 0 160 160" aria-hidden="true">
+            <circle class="ring-bg" cx="80" cy="80" r="70" stroke-width="12"></circle>
+            <circle class="ring-indicator" id="hero-ring-indicator" cx="80" cy="80" r="70" stroke-width="12"
+              stroke-dasharray="439.82" stroke-dashoffset="439.82"></circle>
+          </svg>
+          <div class="ring-inner-content">
+            <span class="ring-percent" id="hero-ring-percent">0%</span>
+            <span class="ring-subtext" id="hero-ring-ratio">0 of 0 habits</span>
+          </div>
+        </div>
+        <h2 style="font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); margin-top: var(--space-2);">Today's Completion</h2>
+        <div class="status-message-banner" id="hero-status-message">
+          Loading today's status...
+        </div>
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="hero-stat-val" id="hero-stat-active">0</span>
+            <span class="hero-stat-lbl">Active Today</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-val" id="hero-stat-completed">0</span>
+            <span class="hero-stat-lbl">Completed</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-val" id="hero-stat-remaining">0</span>
+            <span class="hero-stat-lbl">Pending</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-Day Completion Strip -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Past 7 Days Consistency</h3>
+            <span class="card-subtitle">Daily completion rates over the last week</span>
+          </div>
+        </div>
+        <div class="completion-strip" id="dashboard-strip">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Actionable Insight Highlight -->
+      <div class="card insight-highlight-card" id="dashboard-insight-card">
+        <div class="insight-category-tag" id="dash-insight-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span id="dash-insight-category">Data Insight</span>
+        </div>
+        <p class="insight-text" id="dash-insight-text">
+          Track habits consistently to discover meaningful behavioral patterns and insights.
+        </p>
+        <div class="insight-evidence" id="dash-insight-evidence">
+          <span id="dash-insight-evidence-text">Minimum 7 days of tracking recommended</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Main Column -->
+    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+      <!-- Today's Quick Log Snapshot -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Today's Habits</h3>
+            <span class="card-subtitle">Quick-entry for scheduled habits</span>
+          </div>
+          <span class="badge badge-accent" id="dash-today-date-badge">Today</span>
+        </div>
+        <div class="quick-habit-list" id="dashboard-quick-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Streak & Personal Record Highlights -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Active Streaks & Records</h3>
+            <span class="card-subtitle">Longest streaks and sustained consistency</span>
+          </div>
+          <a href="#analytics" class="btn btn-sm btn-ghost">Full Analytics &rarr;</a>
+        </div>
+        <div class="streak-cards-grid" id="dashboard-streaks-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Weekly Trend Mini Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Weekly Trend</h3>
+            <span class="card-subtitle">Completion rate over recent weeks</span>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap" style="height: 180px;">
+          <canvas id="dashboardTrendCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </template>
+
+    <template id="template-tracker">
+<div class="page-view" id="tracker-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Daily Tracker</h1>
+      <p>Log your daily habits with precision, zero friction, and instant feedback.</p>
+    </div>
+    <div class="page-header-actions">
+      <!-- View mode switch -->
+      <div class="view-mode-tabs" role="tablist" aria-label="Tracker View Modes">
+        <button class="view-mode-tab active" id="tab-mode-grid" role="tab" aria-selected="true" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Weekly Grid</span>
+        </button>
+        <button class="view-mode-tab" id="tab-mode-focus" role="tab" aria-selected="false" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Daily Focus</span>
+        </button>
+      </div>
+
+      <button class="btn btn-secondary btn-sm" id="tracker-undo-btn" type="button" title="Undo last edit (Ctrl+Z)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+        <span>Undo</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Date Navigator Bar -->
+  <div class="card" style="padding: var(--space-3) var(--space-4);">
+    <div class="tracker-view-controls">
+      <div class="date-nav-bar">
+        <button class="btn btn-icon btn-sm" id="nav-prev-week-btn" type="button" title="Previous Week" aria-label="Previous Week">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
+        <button class="btn btn-secondary btn-sm" id="nav-today-btn" type="button">Today</button>
+        <button class="btn btn-icon btn-sm" id="nav-next-week-btn" type="button" title="Next Week" aria-label="Next Week">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <span class="date-nav-title" id="tracker-date-range-label">Oct 19 – Oct 25, 2026</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: var(--space-3);">
+        <input type="date" class="form-input" id="tracker-jump-date-picker" style="padding: 0.35rem 0.65rem; font-size: var(--text-xs); width: auto;" title="Jump to specific date" />
+      </div>
+    </div>
+  </div>
+
+  <!-- MODE 1: Weekly Grid View -->
+  <div id="tracker-grid-container" class="grid-wrapper">
+    <table class="tracker-table" id="weekly-tracker-table">
+      <thead>
+        <tr id="tracker-table-header-row">
+          <th>Habit & Target</th>
+          <!-- Days populated dynamically by tracker.js -->
+        </tr>
+      </thead>
+      <tbody id="tracker-table-body">
+        <!-- Habit rows populated dynamically by tracker.js -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Legend & Accessibility Note -->
+  <div class="card" id="tracker-legend-card" style="padding: var(--space-3) var(--space-4);">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-xs); color: var(--text-secondary);">
+      <div style="display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;">
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span class="badge badge-success">&#10003; Target Met</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span class="badge badge-warning">&frac12; Partial</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span class="badge badge-danger">&#10005; Missed / Violation</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span class="badge badge-neutral">&ndash; Skipped</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span style="border: 1px dashed var(--border-strong); padding: 2px 6px; border-radius: var(--radius-sm);">Not Recorded</span>
+        </span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-muted);">
+        Click any cell to update or cycle status &bull; Keyboard: Tab &amp; Enter
+      </div>
+    </div>
+  </div>
+
+  <!-- MODE 2: Daily Focus View -->
+  <div id="tracker-focus-container" class="focus-view-container" style="display: none;">
+    <div class="card" style="padding: var(--space-4);">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <h2 style="font-size: var(--text-md); font-weight: 700; color: var(--text-primary);" id="focus-date-title">Today's Focus</h2>
+          <span style="font-size: var(--text-xs); color: var(--text-muted);" id="focus-summary-text">0 of 0 habits completed</span>
+        </div>
+        <span class="badge badge-accent" id="focus-completion-pill">0% Complete</span>
+      </div>
+    </div>
+
+    <div class="focus-habits-list" id="focus-habits-list" style="display: flex; flex-direction: column; gap: var(--space-4);">
+      <!-- Populated dynamically by tracker.js -->
+    </div>
+
+    <!-- Daily Reflection Prompt -->
+    <div class="card reflection-card" id="focus-reflection-card">
+      <div class="card-header" style="margin-bottom: var(--space-2);">
+        <h3 class="card-title" style="font-size: var(--text-sm);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px; color: var(--accent-base);"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Daily Note &amp; Reflection
+        </h3>
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <textarea class="form-textarea" id="focus-daily-note" rows="2" placeholder="What went well today? What will you adjust tomorrow?"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </template>
+
+    <template id="template-analytics">
+<div class="page-view" id="analytics-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Performance Analytics</h1>
+      <p>Data-driven insights, statistical relationships, and transparent performance calculations.</p>
+    </div>
+    <div class="page-header-actions">
+      <!-- Time period filter -->
+      <div class="view-mode-tabs" role="tablist" aria-label="Analytics Time Period">
+        <button class="view-mode-tab" data-period="7" role="tab" type="button">7 Days</button>
+        <button class="view-mode-tab active" data-period="30" role="tab" type="button">30 Days</button>
+        <button class="view-mode-tab" data-period="60" role="tab" type="button">60 Days</button>
+        <button class="view-mode-tab" data-period="90" role="tab" type="button">90 Days</button>
+        <button class="view-mode-tab" data-period="all" role="tab" type="button">All Time</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Key Metrics Row -->
+  <div class="analytics-grid-top">
+    <!-- Stat 1: Completion Rate -->
+    <div class="card stat-card">
+      <span class="stat-label">Eligible Completion Rate</span>
+      <span class="stat-value" id="stat-completion-rate">0%</span>
+      <span class="stat-subtext" id="stat-completion-obs">0 completed / 0 recorded eligible days</span>
+    </div>
+
+    <!-- Stat 2: Current Streak -->
+    <div class="card stat-card">
+      <span class="stat-label">Top Active Streak</span>
+      <span class="stat-value" id="stat-top-streak">0 days</span>
+      <span class="stat-subtext" id="stat-top-streak-habit">No active streak</span>
+    </div>
+
+    <!-- Stat 3: Best Streak Record -->
+    <div class="card stat-card">
+      <span class="stat-label">All-Time Best Streak</span>
+      <span class="stat-value" id="stat-best-streak">0 days</span>
+      <span class="stat-subtext" id="stat-best-streak-habit">All habits tracked</span>
+    </div>
+
+    <!-- Stat 4: Consistency Score -->
+    <div class="card stat-card" style="border-left: 3px solid var(--accent-base);">
+      <span class="stat-label">Consistency Score</span>
+      <span class="stat-value" id="stat-consistency-score">0 / 100</span>
+      <span class="stat-subtext" id="stat-consistency-rating">Awaiting baseline data</span>
+    </div>
+  </div>
+
+  <!-- Consistency Score Transparent Formula Breakdown -->
+  <div class="card consistency-score-card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Transparent Consistency Score Breakdown
+        </h3>
+        <span class="card-subtitle">User-verifiable formula with exact component weights (not an objective health measure)</span>
+      </div>
+      <span class="badge badge-accent" id="consistency-badge">Score: 0 / 100</span>
+    </div>
+    <div style="overflow-x: auto;">
+      <table class="formula-breakdown-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Weight</th>
+            <th>Description &amp; Logic</th>
+            <th>Raw Metric</th>
+            <th>Contribution</th>
+          </tr>
+        </thead>
+        <tbody id="consistency-breakdown-body">
+          <!-- Populated by analytics.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Calendar Heatmap Card -->
+  <div class="card heatmap-card">
+    <div class="heatmap-controls">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Activity Calendar Heatmap
+        </h3>
+        <span class="card-subtitle">Visual intensity of daily completions across the year</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: var(--space-3);">
+        <label for="heatmap-habit-filter" style="font-size: var(--text-xs); color: var(--text-muted); font-weight: 600;">Filter:</label>
+        <select class="form-select" id="heatmap-habit-filter" style="padding: 0.35rem 0.65rem; font-size: var(--text-xs); width: auto;">
+          <option value="all">All Habits (Overall Intensity)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="heatmap-scroll-area">
+      <div class="heatmap-container" id="calendar-heatmap-container">
+        <!-- Rendered by heatmap.js -->
+      </div>
+    </div>
+
+    <div class="heatmap-footer">
+      <div class="heatmap-legend">
+        <span>Less</span>
+        <div class="legend-scale">
+          <div class="heatmap-cell level-0" title="0% completion"></div>
+          <div class="heatmap-cell level-1" title="1-25% completion"></div>
+          <div class="heatmap-cell level-2" title="26-50% completion"></div>
+          <div class="heatmap-cell level-3" title="51-75% completion"></div>
+          <div class="heatmap-cell level-4" title="76-100% completion"></div>
+        </div>
+        <span>More</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-muted);">
+        Click any day cell to open and edit tracker for that date
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 1: Rolling Trend & Weekday Comparison -->
+  <div class="charts-dual-grid">
+    <!-- Chart: Rolling Trend Line -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Rolling Completion Trend</h3>
+          <span class="card-subtitle">Actual daily rate with 7-day rolling average overlay</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="rollingTrendCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart: Weekday Performance Bar Chart -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Weekday Consistency</h3>
+          <span class="card-subtitle">Completion rate by day of week (min 4 obs threshold)</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="weekdayBarCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pacing & Recovery Analysis -->
+  <div class="charts-dual-grid">
+    <!-- Goal Pacing Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            Current Period Goal Pacing
+          </h3>
+          <span class="card-subtitle">Trajectory, remaining effort, and pacing feasibility</span>
+        </div>
+        <span class="badge badge-neutral" id="pacing-status-badge">Calculating</span>
+      </div>
+      <div class="pacing-meter-wrap">
+        <div class="pacing-meter-bar" id="pacing-progress-bar" style="width: 0%;"></div>
+      </div>
+      <div class="pacing-stats-grid">
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-target-val">0</span>
+          <span class="pacing-stat-lbl">Target Sessions</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-completed-val">0</span>
+          <span class="pacing-stat-lbl">Completed So Far</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-remaining-days">0</span>
+          <span class="pacing-stat-lbl">Remaining Days</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="pacing-effort-needed">0</span>
+          <span class="pacing-stat-lbl">Daily Effort Needed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recovery Analysis Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--color-warning);"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+            Interruption &amp; Recovery Analysis
+          </h3>
+          <span class="card-subtitle">How effectively you bounce back following missed days</span>
+        </div>
+      </div>
+      <div class="pacing-stats-grid">
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-rate-val">0%</span>
+          <span class="pacing-stat-lbl">Recovery Rate (&le;2 days)</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-avg-time">0 days</span>
+          <span class="pacing-stat-lbl">Avg Time to Resume</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-interruption-len">0 days</span>
+          <span class="pacing-stat-lbl">Avg Gap Duration</span>
+        </div>
+        <div class="pacing-stat-box">
+          <span class="pacing-stat-val" id="recovery-total-gaps">0</span>
+          <span class="pacing-stat-lbl">Interruption Events</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2: Radar & Scatter Plot -->
+  <div class="charts-dual-grid">
+    <!-- Normalized Radar Chart -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Habit Profile (Normalized Radar)</h3>
+          <span class="card-subtitle">Comparable score across habits (0–100 normalized attainment)</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="habitRadarCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Scatter Plot for Numerical Variables -->
+    <div class="card chart-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Quantitative Relationship (Scatter Plot)</h3>
+          <span class="card-subtitle">Explore pairs of numerical habits (e.g. Walking vs Sleep)</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="scatterPlotCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Habit Correlation Analysis Section -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--color-info);"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          Statistical Habit Association Matrix
+        </h3>
+        <span class="card-subtitle">Phi coefficient (binary habits) &amp; Pearson/Spearman (numerical). Minimum 20 paired observations.</span>
+      </div>
+      <span class="badge badge-neutral" style="font-size: 11px;">Deterministic &bull; No AI</span>
+    </div>
+
+    <div class="correlation-matrix-wrap" id="correlation-matrix-container">
+      <!-- Populated by charts.js / analytics.js -->
+    </div>
+
+    <div style="margin-top: var(--space-4); padding: var(--space-3); border-radius: var(--radius-md); background-color: var(--bg-card-subtle); border: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.5;">
+      <strong>Statistical Methodology Note:</strong> Associations measure co-occurrence patterns in your recorded history. 
+      <em>Correlation does not imply causation.</em> Unrecorded days, shared environmental factors, and schedule differences influence these metrics.
+    </div>
+  </div>
+
+  <!-- Rule-Based Insight Engine Feed -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          Actionable Personal Insights
+        </h3>
+        <span class="card-subtitle">Grounded strictly in verified data. No hallucinated or fabricated statements.</span>
+      </div>
+    </div>
+    <div class="insights-feed" id="analytics-insights-feed">
+      <!-- Populated by analytics.js insight engine -->
+    </div>
+  </div>
+</div>
+
+    </template>
+
+    <template id="template-habits">
+<div class="page-view" id="habits-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Habit Management</h1>
+      <p>Configure habit definitions, targets, schedules, and custom properties.</p>
+    </div>
+    <div class="page-header-actions">
+      <button class="btn btn-primary" id="habits-new-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Create Habit</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary stats -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+    <div class="card stat-card">
+      <span class="stat-label">Active Habits</span>
+      <span class="stat-value" id="habits-count-active">0</span>
+      <span class="stat-subtext">Currently tracked on schedule</span>
+    </div>
+    <div class="card stat-card">
+      <span class="stat-label">Archived Habits</span>
+      <span class="stat-value" id="habits-count-archived">0</span>
+      <span class="stat-subtext">Preserved historical records</span>
+    </div>
+  </div>
+
+  <!-- Active Habits Section -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <h3 class="card-title">Active Habits</h3>
+        <span class="card-subtitle">Active habits appearing in your tracker and analytics</span>
+      </div>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="tracker-table" style="min-width: 680px;">
+        <thead>
+          <tr>
+            <th style="width: 50px; text-align: center;">Order</th>
+            <th style="text-align: left; padding-left: var(--space-4);">Habit</th>
+            <th>Type</th>
+            <th>Daily Target</th>
+            <th>Schedule</th>
+            <th>Start Date</th>
+            <th style="width: 140px; text-align: right; padding-right: var(--space-4);">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="active-habits-tbody">
+          <!-- Populated dynamically by habits.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Archived Habits Section -->
+  <div class="card" id="archived-habits-card">
+    <div class="card-header" style="cursor: pointer;" id="archived-header-toggle">
+      <div class="card-title-group">
+        <h3 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px; color: var(--text-muted);"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+          Archived Habits (<span id="archived-count-inline">0</span>)
+        </h3>
+        <span class="card-subtitle">Paused or completed habits. Historical data remains intact.</span>
+      </div>
+      <button class="btn btn-sm btn-ghost" id="toggle-archived-view-btn" type="button">Show</button>
+    </div>
+
+    <div id="archived-habits-body" style="display: none; padding-top: var(--space-3);">
+      <div style="overflow-x: auto;">
+        <table class="tracker-table" style="min-width: 680px;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding-left: var(--space-4);">Habit</th>
+              <th>Type</th>
+              <th>Target</th>
+              <th>Archived Date</th>
+              <th style="width: 140px; text-align: right; padding-right: var(--space-4);">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="archived-habits-tbody">
+            <!-- Populated dynamically by habits.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </template>
+
+    <template id="template-settings">
+<div class="page-view" id="settings-view">
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>Settings &amp; Data</h1>
+      <p>Configure interface themes, regional formats, and manage local data backups.</p>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: var(--space-6); max-width: 860px;">
+    <!-- Theme & Visual Appearance -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            Appearance &amp; Theme
+          </h3>
+          <span class="card-subtitle">Choose your preferred visual presentation and accent tone</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Theme Mode</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-3);">
+          <label class="radio-card" style="padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--border-default); display: flex; align-items: center; gap: var(--space-3); cursor: pointer;">
+            <input type="radio" name="app-theme" value="dark" checked />
+            <div>
+              <div style="font-weight: 600; font-size: var(--text-sm);">Dark Charcoal</div>
+              <div style="font-size: var(--text-xs); color: var(--text-muted);">Deep charcoal surfaces</div>
+            </div>
+          </label>
+          <label class="radio-card" style="padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--border-default); display: flex; align-items: center; gap: var(--space-3); cursor: pointer;">
+            <input type="radio" name="app-theme" value="oled" />
+            <div>
+              <div style="font-weight: 600; font-size: var(--text-sm);">True OLED</div>
+              <div style="font-size: var(--text-xs); color: var(--text-muted);">Pure #000000 black</div>
+            </div>
+          </label>
+          <label class="radio-card" style="padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--border-default); display: flex; align-items: center; gap: var(--space-3); cursor: pointer;">
+            <input type="radio" name="app-theme" value="light" />
+            <div>
+              <div style="font-weight: 600; font-size: var(--text-sm);">Light Mode</div>
+              <div style="font-size: var(--text-xs); color: var(--text-muted);">Crisp off-white surfaces</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: var(--space-2);">
+        <label class="form-label">Primary Accent Color</label>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;" id="accent-color-selector">
+          <button type="button" class="btn-accent-color" data-accent="emerald" style="width: 36px; height: 36px; border-radius: 50%; background-color: #10b981; border: 2px solid white; cursor: pointer; box-shadow: 0 0 0 2px #10b981;" title="Emerald"></button>
+          <button type="button" class="btn-accent-color" data-accent="blue" style="width: 36px; height: 36px; border-radius: 50%; background-color: #3b82f6; border: 2px solid transparent; cursor: pointer;" title="Blue"></button>
+          <button type="button" class="btn-accent-color" data-accent="violet" style="width: 36px; height: 36px; border-radius: 50%; background-color: #8b5cf6; border: 2px solid transparent; cursor: pointer;" title="Violet"></button>
+          <button type="button" class="btn-accent-color" data-accent="amber" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f59e0b; border: 2px solid transparent; cursor: pointer;" title="Amber"></button>
+          <button type="button" class="btn-accent-color" data-accent="rose" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f43f5e; border: 2px solid transparent; cursor: pointer;" title="Rose"></button>
+          <button type="button" class="btn-accent-color" data-accent="cyan" style="width: 36px; height: 36px; border-radius: 50%; background-color: #06b6d4; border: 2px solid transparent; cursor: pointer;" title="Cyan"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Regional & Date Formatting Preferences -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">Calendar &amp; Regional Preferences</h3>
+          <span class="card-subtitle">Control week starting day, date format, and number representations</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="setting-week-start">Week Starts On</label>
+          <select class="form-select" id="setting-week-start">
+            <option value="monday">Monday (ISO standard)</option>
+            <option value="sunday">Sunday</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="setting-date-format">Date Display Format</label>
+          <select class="form-select" id="setting-date-format">
+            <option value="YYYY-MM-DD">YYYY-MM-DD (2026-10-20)</option>
+            <option value="MMM D, YYYY">MMM D, YYYY (Oct 20, 2026)</option>
+            <option value="DD/MM/YYYY">DD/MM/YYYY (20/10/2026)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="setting-number-format">Number Formatting</label>
+          <select class="form-select" id="setting-number-format">
+            <option value="en-US">US / Standard (1,234.56)</option>
+            <option value="en-IN">Indian Format (1,23,456.78)</option>
+            <option value="de-DE">European Format (1.234,56)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="setting-default-period">Default Analytics Period</label>
+          <select class="form-select" id="setting-default-period">
+            <option value="7">7 Days</option>
+            <option value="30" selected>30 Days</option>
+            <option value="60">60 Days</option>
+            <option value="90">90 Days</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy & Local Storage -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--color-success);"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Privacy &amp; Local Storage Architecture
+          </h3>
+          <span class="card-subtitle">Zero external services. 100% private to your browser.</span>
+        </div>
+        <span class="badge badge-success">Local Only</span>
+      </div>
+
+      <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: var(--space-2);">
+        <p>
+          All habits, entries, notes, and settings are stored strictly in your browser’s local storage.
+          No information is ever transmitted to any third-party server, tracking service, or cloud AI.
+        </p>
+        <p style="color: var(--color-warning);">
+          <strong>Important Note:</strong> Because data is stored in the browser, clearing browsing cache/site data or using incognito sessions can erase your local history. Please create regular JSON backup exports.
+        </p>
+      </div>
+
+      <div style="margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--radius-md); background-color: var(--bg-card-subtle); border: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; font-size: var(--text-xs);">
+        <span style="color: var(--text-muted);">Current Local Storage Usage:</span>
+        <span style="font-weight: 700; color: var(--text-primary);" id="storage-usage-text">Calculating...</span>
+      </div>
+    </div>
+
+    <!-- Data Portability: Import & Export -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px; color: var(--accent-base);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Data Portability &amp; Backups
+          </h3>
+          <span class="card-subtitle">Complete backups, safe validation, and CSV exports</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+        <!-- JSON Backup -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-subtle);">
+          <div>
+            <div style="font-weight: 600; font-size: var(--text-sm);">Full System JSON Backup</div>
+            <div style="font-size: var(--text-xs); color: var(--text-muted);">Exports full versioned schema with habits, history, and settings</div>
+          </div>
+          <div style="display: flex; gap: var(--space-2);">
+            <button class="btn btn-secondary btn-sm" id="export-json-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Export JSON</span>
+            </button>
+            <label class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Import JSON</span>
+              <input type="file" id="import-json-file-input" accept=".json" style="display: none;" />
+            </label>
+          </div>
+        </div>
+
+        <!-- CSV Exports -->
+        <div>
+          <div style="font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-2);">Spreadsheet CSV Exports</div>
+          <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm" id="export-entries-csv-btn" type="button">Daily Entries CSV</button>
+            <button class="btn btn-secondary btn-sm" id="export-habits-csv-btn" type="button">Habit Definitions CSV</button>
+            <button class="btn btn-secondary btn-sm" id="export-analytics-csv-btn" type="button">Analytics Summary CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Danger Zone: Reset Data -->
+    <div class="card" style="border-color: var(--color-danger-border);">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h3 class="card-title" style="color: var(--color-danger);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Danger Zone
+          </h3>
+          <span class="card-subtitle">Irreversible actions requiring confirmation</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3);">
+        <div>
+          <div style="font-weight: 600; font-size: var(--text-sm);">Reset All Application Data</div>
+          <div style="font-size: var(--text-xs); color: var(--text-muted);">Permanently deletes all entries and resets habits to initial defaults</div>
+        </div>
+        <button class="btn btn-danger btn-sm" id="reset-all-data-btn" type="button">Reset All Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </template>
+
+    <!-- Main ES Module Entry Point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
